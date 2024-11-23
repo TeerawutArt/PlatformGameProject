@@ -8,6 +8,9 @@ TagManager:
   - floor
   - movingPlatform
   - finish
+  - water
+  - wing
+  - trap
   layers:
   - Default
   - TransparentFX

@@ -6,12 +6,13 @@ public class PlayerInfo : MonoBehaviour
 {
     public float health;
     public float maxHp = 3;
-
+    private PowerUpImage pu;
     public float point = 0;
     public bool doubleJump = false;
     // Start is called before the first frame update
     void Start()
     {
+        pu = PowerUpImage.SharedInstance;
         health = maxHp;
 
     }
@@ -26,6 +27,7 @@ public class PlayerInfo : MonoBehaviour
         if (_state == true) doubleJump = true;
 
         else if (_state == false) doubleJump = false;
+        pu.UpdatePowerUp(_state);
 
     }
 }

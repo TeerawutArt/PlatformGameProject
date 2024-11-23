@@ -5,6 +5,7 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
+    private ObjectPooling op;
     private AudioSource audioSource;
 
     public int speed = 2;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public string runAnimation = "Run";
     public string jumpAnimation = "Jump";
     public string fallAnimation = "Fall";
+    public string hitAnimation = "Hit";
     private SoundEffect se;
     private PlayerInfo pInfo;
     private Vector3 move = Vector3.zero;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        op = ObjectPooling.SharedInstance;
         anim = GetComponent<Animator>();
         se = SoundEffect.ShareInstance;
         pInfo = GetComponent<PlayerInfo>();
@@ -54,8 +57,6 @@ public class PlayerController : MonoBehaviour
             UpdateTimer();
             HandleJump();
         }
-
-        CheckFallOffPlatform();
     }
 
     private void HandleMovement()
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, jumpPower, 0);
             jumpState = JumpState.Jumping;
         }
-        else if (pInfo.doubleJump && jumpState == JumpState.Jumping && Input.GetKeyDown(KeyCode.Space))
+        else if (pInfo.doubleJump && Input.GetKeyDown(KeyCode.Space))
         {
             isTouching = false;
             se.PlaySoundEffect("jump");
@@ -201,6 +202,12 @@ public class PlayerController : MonoBehaviour
             }
             jumpState = JumpState.Grounded;
         }
+        //water 
+        else if (collision.gameObject.CompareTag("water"))
+        {
+            LoseGame();
+
+        }
         else if (collision.gameObject.CompareTag("finish"))
         {
             WinGame();
@@ -216,6 +223,10 @@ public class PlayerController : MonoBehaviour
             {
                 transform.parent = null;
             }
+            else
+            {
+                isTouching = false;
+            }
         }
     }
 
@@ -224,6 +235,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("collect"))
         {
             CollectCoin(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("wing"))
+        {
+            CollectWing(other.gameObject);
+
         }
     }
 
@@ -238,11 +254,26 @@ public class PlayerController : MonoBehaviour
             audioSource.PlayOneShot(collectSound);
         }
     }
+    private void CollectWing(GameObject wing)
+    {
+        ObjectController wingComponent = wing.GetComponent<ObjectController>();
+        pInfo.DoubleJumpState(true);
+        wing.SetActive(false);
+        op.ResetObject(wing, "powerUp", wingComponent.index);
+
+
+    }
 
     private void PauseGame()
     {
         Time.timeScale = 0;
         Debug.Log("Game Paused!");
+    }
+
+    private void LoseGame()
+    {
+        Time.timeScale = 0;
+        Debug.Log("You Lose!");
     }
 
     private void WinGame()
