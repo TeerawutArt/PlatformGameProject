@@ -2972,6 +2972,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &231896569
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3341,6 +3342,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &262411000
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5600,6 +5602,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0
+  index: 0
 --- !u!135 &495195364
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7845,6 +7848,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!4 &684574446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4794983736757778002, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
@@ -9534,6 +9538,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &775408760
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10031,6 +10036,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &804253699
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14599,6 +14605,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1098980358
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16514,6 +16521,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1287194750
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19208,6 +19216,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1441858001
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19608,6 +19617,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1491566276
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19886,6 +19896,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1502864012
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19999,6 +20010,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1513549947
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20262,6 +20274,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1531098414
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20767,12 +20780,13 @@ MonoBehaviour:
   speed: 2
   jumpPower: 5
   sizeOfcoin: 10
-  maxTime: 1000
+  maxTime: 120
   isTouching: 1
   idleAnimation: Idle
   runAnimation: Run
   jumpAnimation: Jump
   fallAnimation: Fall
+  hitAnimation: Hit
   collectSound: {fileID: 8300000, guid: 67f4ad5a0609b434ea1a56a54a685a2b, type: 3}
   textUI: {fileID: 132672588}
   textUITimer: {fileID: 1575412005}
@@ -24932,6 +24946,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0.5
+  index: 0
 --- !u!135 &1849769860
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -25269,6 +25284,7 @@ MonoBehaviour:
   rotationSpeed: 50
   moveSpeed: 1
   moveHeight: 0
+  index: 0
 --- !u!135 &1880765708
 SphereCollider:
   m_ObjectHideFlags: 0
