@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSource;
     private bool gameOverSoundPlayed = false;
     public AudioClip gameoverSound; // อ้างถึงไฟล์เสียงที่ใช้
+private bool isGameOver = false; // เพิ่มตัวแปรสถานะ
 
 
     private bool damageSound = false;
@@ -265,17 +266,18 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void UpdateTimer()
-    {
-        currentTime -= Time.deltaTime;
-        UpdateTimerUI();
-        if (currentTime <= 0)
-        {
-            currentTime = 0;
-            LoseGame();
-        }
-    }
+private void UpdateTimer()
+{
+    if (isGameOver) return; // ถ้าเกมจบไปแล้วให้หยุดการทำงาน
 
+    currentTime -= Time.deltaTime;
+    UpdateTimerUI();
+    if (currentTime <= 0)
+    {
+        currentTime = 0;
+        LoseGame();
+    }
+}
     private void UpdateScoreUI()
     {
         textUI.text = "Score: " + currentScore;
@@ -376,22 +378,25 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private void LoseGame()
-    { 
-        Time.timeScale = 0;
-        Gameover.gameObject.SetActive(true);
+private void LoseGame()
+{
+    if (isGameOver) return; // ถ้าเกมจบไปแล้วให้หยุดการทำงาน
+    isGameOver = true; // ตั้งค่าสถานะว่าเกมจบแล้ว
 
-        if (SoundEffect.ShareInstance != null)
-        {
-            SoundEffect.ShareInstance.StopBgMusic();
-        }
+    Time.timeScale = 0;
+    Gameover.gameObject.SetActive(true);
 
-        // เล่นเสียงจบเกม
-        if (audioSource != null && gameoverSound != null)
-        {
-            audioSource.PlayOneShot(gameoverSound);
-        }  
+    if (SoundEffect.ShareInstance != null)
+    {
+        SoundEffect.ShareInstance.StopBgMusic();
     }
+
+    // เล่นเสียงจบเกม
+    if (audioSource != null && gameoverSound != null)
+    {
+        audioSource.PlayOneShot(gameoverSound);
+    }
+}
 
 
     private void WinGame()
