@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PlatformGameProject.sln"
+    "dotnet.defaultSolution": "Game_group.sln"
 }

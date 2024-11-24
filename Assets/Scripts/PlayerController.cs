@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public string jumpAnimation = "Jump";
     public string fallAnimation = "Fall";
     public string hitAnimation = "Hit";
+    public string DeadAnimation = "Dead";
     private SoundEffect se;
     private PlayerInfo pInfo;
     private Vector3 move = Vector3.zero;
@@ -34,7 +35,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI textUI;
     public TextMeshProUGUI textUITimer;
     public JumpState jumpState = JumpState.Grounded;
-
+    private bool damaged = false;
+    private bool isDeadAnimationPlaying = false;
     void Start()
     {
         op = ObjectPooling.SharedInstance;
@@ -54,9 +56,19 @@ public class PlayerController : MonoBehaviour
         if (controlEnabled)
         {
             HandleMovement();
-            UpdateTimer();
             HandleJump();
         }
+        //ตอนตาย
+        if (isDeadAnimationPlaying)
+        {
+            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName(DeadAnimation) && stateInfo.normalizedTime >= 1.0f)
+            {
+                isDeadAnimationPlaying = false;
+                LoseGame();
+            }
+        }
+        UpdateTimer();
     }
 
     private void HandleMovement()
@@ -154,6 +166,71 @@ public class PlayerController : MonoBehaviour
             jumpState = JumpState.Grounded;
         }
     }
+    private void HandleDamaged()
+    {
+
+        if (damaged) return;
+        pInfo.TakeDamage(1);
+        damaged = true;
+        controlEnabled = false;
+        anim.Play(hitAnimation);
+        Vector3 knockbackDirection = transform.forward * -1; // ถอยหลังจากตำแหน่งปัจจุบัน
+        knockbackDirection.y = 0.5f; // เพิ่มแรงกระเด้งขึ้นเล็กน้อย
+        rb.AddForce(knockbackDirection * 5, ForceMode.Impulse); // เพิ่มแรงกระเด็น
+        StartCoroutine(DamageEffectCoroutine());
+    }
+    private IEnumerator DamageEffectCoroutine()
+    {
+        float blinkDuration = 2f;
+        float blinkInterval = 0.1f;
+        float elapsedTime = 0f;
+
+        // ดึง GameObject ลูกทั้งหมดที่มี Renderer
+        Transform[] childTransforms = GetComponentsInChildren<Transform>();
+
+        // กระพริบตัวละครโดยปิด/เปิด GameObject ที่มี Renderer
+        while (elapsedTime < blinkDuration)
+        {
+            SetChildrenActive(childTransforms, false); // ซ่อน
+            yield return new WaitForSeconds(blinkInterval);
+            SetChildrenActive(childTransforms, true); // แสดง
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval * 2;
+        }
+
+        // จบการกระพริบ: แสดงตัวละครทั้งหมด
+        SetChildrenActive(childTransforms, true);
+
+        // เปิดการควบคุมใหม่
+        if (pInfo.health > 0)
+        {
+            damaged = false;
+            controlEnabled = true;
+        }
+        else
+        {
+            OnDead();
+        }
+
+
+    }
+
+    private void SetChildrenActive(Transform[] childTransforms, bool isActive)
+    {
+        foreach (Transform child in childTransforms)
+        {
+            if (child != transform)
+            {
+                child.gameObject.SetActive(isActive);
+            }
+        }
+    }
+    private void OnDead()
+    {
+        anim.Play(DeadAnimation);
+        isDeadAnimationPlaying = true;
+    }
+
 
     private void UpdateTimer()
     {
@@ -200,7 +277,13 @@ public class PlayerController : MonoBehaviour
             {
                 transform.parent = collision.transform;
             }
+
             jumpState = JumpState.Grounded;
+        }
+        //โดนกับดัก
+        if (collision.gameObject.CompareTag("trap"))
+        {
+            HandleDamaged();
         }
         //water 
         else if (collision.gameObject.CompareTag("water"))

@@ -9,10 +9,10 @@ public class ObjectPooling : MonoBehaviour
     public GameObject coinPrefab;
     public GameObject powerUpPrefab;
     public GameObject collectableParent;
-    public int coinAmountToPool = 0;
+    public int coinAmountToPool = 10; //ไปตั้งเพิ่มเอา
     public int powerUpAmountToPool = 0;
     public bool isInitialized = false;
-    public SpawnObj sc;
+    private SpawnObj sc;
 
     void Awake()
     {
@@ -22,7 +22,6 @@ public class ObjectPooling : MonoBehaviour
     void Start()
     {
         sc = GetComponent<SpawnObj>();
-        coinAmountToPool = sc.spawnCoin.Length;
         powerUpAmountToPool = sc.spawnPower.Length;
         pooledObjects = new Dictionary<string, List<GameObject>>();
         InitializePool("coin", coinPrefab, coinAmountToPool);
@@ -39,8 +38,6 @@ public class ObjectPooling : MonoBehaviour
             GameObject tmp = Instantiate(prefab, collectableParent.transform);
             ObjectController tmpObj = tmp.AddComponent<ObjectController>();
             tmpObj.index = i;
-
-
             tmp.SetActive(false);
             objectPool.Add(tmp);
         }
@@ -62,6 +59,7 @@ public class ObjectPooling : MonoBehaviour
         return null;
     }
 
+    //ส่วนของ respawn collect ต่างๆ (ตอนนี้เหรียญไม่ได้ให้เกิดใหม่)
     public void ResetObject(GameObject obj, string key, int spawnIndex)
     {
         StartCoroutine(WaitAndReactivateObject(obj, key, spawnIndex));
