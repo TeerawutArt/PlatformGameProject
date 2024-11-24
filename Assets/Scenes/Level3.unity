@@ -8015,8 +8015,12 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4830524175710562953, guid: 68de5bb115776794da12b8e0f5aa687a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1176
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830524175710562953, guid: 68de5bb115776794da12b8e0f5aa687a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.09
+      value: 5.9724
       objectReference: {fileID: 0}
     - target: {fileID: 4830524175710562953, guid: 68de5bb115776794da12b8e0f5aa687a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8024,7 +8028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4830524175710562953, guid: 68de5bb115776794da12b8e0f5aa687a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -78.45893
+      value: -78.4589
       objectReference: {fileID: 0}
     - target: {fileID: 4830524175710562953, guid: 68de5bb115776794da12b8e0f5aa687a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13140,7 +13144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08187f35e1d39d8478de2d4d0c903a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   jumpPower: 6
   sizeOfcoin: 10
   maxTime: 1000
