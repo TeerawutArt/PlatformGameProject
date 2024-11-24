@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateTimerUI()
     {
-        textUITimer.text = "Time: " + currentTime.ToString("F2");
+        textUITimer.text = "Time: " + Mathf.FloorToInt(currentTime);
     }
 
     private void CheckFallOffPlatform()
