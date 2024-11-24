@@ -286,12 +286,12 @@ public class PlayerController : MonoBehaviour
             HandleDamaged();
         }
         //water 
-        else if (collision.gameObject.CompareTag("water"))
+        if (collision.gameObject.CompareTag("water"))
         {
             LoseGame();
 
         }
-        else if (collision.gameObject.CompareTag("finish"))
+        if (collision.gameObject.CompareTag("finish"))
         {
             WinGame();
         }
