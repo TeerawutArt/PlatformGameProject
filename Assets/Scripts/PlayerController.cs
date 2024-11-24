@@ -4,9 +4,30 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject Gameover;
     private Rigidbody rb;
     private ObjectPooling op;
     private AudioSource audioSource;
+    private bool gameOverSoundPlayed = false;
+    public AudioClip gameoverSound; // อ้างถึงไฟล์เสียงที่ใช้
+
+
+    private bool damageSound = false;
+    public AudioClip damageSoundpalyer; // อ้างถึงไฟล์เสียงที่ใช้
+
+    private bool dieSound = false;
+    public AudioClip dieSoundpalyer; // อ้างถึงไฟล์เสียงที่ใช้
+
+ private bool jumpvoice = false;
+    public AudioClip jumpvoiceSoundpalyer; // อ้างถึงไฟล์เสียงที่ใช้
+
+
+
+    public GameObject Gamewin;
+    private bool gameWinSoundPlayed = false;
+     public AudioClip gameWinSound; // อ้างถึงไฟล์เสียงที่ใช้
+
+    private Vector3 initialPosition; // เพิ่มตัวแปรสำหรับตำแหน่งเริ่มต้นของลูกบอล
 
     public int speed = 2;
     public int jumpPower = 5;
@@ -39,6 +60,7 @@ public class PlayerController : MonoBehaviour
     private bool isDeadAnimationPlaying = false;
     void Start()
     {
+    Time.timeScale = 1;
         op = ObjectPooling.SharedInstance;
         anim = GetComponent<Animator>();
         se = SoundEffect.ShareInstance;
@@ -49,6 +71,9 @@ public class PlayerController : MonoBehaviour
         currentTime = maxTime;
         UpdateScoreUI();
         UpdateTimerUI();
+        Gameover.gameObject.SetActive(false);
+        Gamewin.gameObject.SetActive(false);
+
     }
 
     void Update()
@@ -61,6 +86,7 @@ public class PlayerController : MonoBehaviour
         //ตอนตาย
         if (isDeadAnimationPlaying)
         {
+           
             AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
             if (stateInfo.IsName(DeadAnimation) && stateInfo.normalizedTime >= 1.0f)
             {
@@ -129,6 +155,7 @@ public class PlayerController : MonoBehaviour
         if (jumpState == JumpState.Grounded && Input.GetKeyDown(KeyCode.Space))
         {
             isTouching = false;
+            audioSource.PlayOneShot(jumpvoiceSoundpalyer);
             se.PlaySoundEffect("jump");
             rb.velocity = new Vector3(rb.velocity.x, jumpPower, 0);
             jumpState = JumpState.Jumping;
@@ -170,6 +197,10 @@ public class PlayerController : MonoBehaviour
     {
 
         if (damaged) return;
+        {
+
+        audioSource.PlayOneShot(damageSoundpalyer);
+        SoundEffect.ShareInstance.Stopwalk();
         pInfo.TakeDamage(1);
         damaged = true;
         controlEnabled = false;
@@ -178,6 +209,7 @@ public class PlayerController : MonoBehaviour
         knockbackDirection.y = 0.5f; // เพิ่มแรงกระเด้งขึ้นเล็กน้อย
         rb.AddForce(knockbackDirection * 5, ForceMode.Impulse); // เพิ่มแรงกระเด็น
         StartCoroutine(DamageEffectCoroutine());
+        }
     }
     private IEnumerator DamageEffectCoroutine()
     {
@@ -209,6 +241,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+             audioSource.PlayOneShot(dieSoundpalyer);
             OnDead();
         }
 
@@ -239,7 +272,7 @@ public class PlayerController : MonoBehaviour
         if (currentTime <= 0)
         {
             currentTime = 0;
-            PauseGame();
+            LoseGame();
         }
     }
 
@@ -253,14 +286,7 @@ public class PlayerController : MonoBehaviour
         textUITimer.text = "Time: " + Mathf.FloorToInt(currentTime);
     }
 
-    private void CheckFallOffPlatform()
-    {
-        if (transform.position.y < -5)
-        {
-            PauseGame();
-            Debug.Log("Ball fell off the platform! Game Paused!");
-        }
-    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -288,6 +314,7 @@ public class PlayerController : MonoBehaviour
         //water 
         else if (collision.gameObject.CompareTag("water"))
         {
+             audioSource.PlayOneShot(dieSoundpalyer);
             LoseGame();
 
         }
@@ -347,21 +374,40 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void PauseGame()
-    {
-        Time.timeScale = 0;
-        Debug.Log("Game Paused!");
-    }
+
 
     private void LoseGame()
-    {
+    { 
         Time.timeScale = 0;
-        Debug.Log("You Lose!");
+        Gameover.gameObject.SetActive(true);
+
+        if (SoundEffect.ShareInstance != null)
+        {
+            SoundEffect.ShareInstance.StopBgMusic();
+        }
+
+        // เล่นเสียงจบเกม
+        if (audioSource != null && gameoverSound != null)
+        {
+            audioSource.PlayOneShot(gameoverSound);
+        }  
     }
+
 
     private void WinGame()
     {
         Time.timeScale = 0;
-        Debug.Log("Game Win!");
+        Gamewin.gameObject.SetActive(true);
+
+        if (SoundEffect.ShareInstance != null)
+        {
+            SoundEffect.ShareInstance.StopBgMusic();
+        }
+
+        // เล่นเสียงจบเกม
+        if (audioSource != null && gameWinSound != null)
+        {
+            audioSource.PlayOneShot(gameWinSound);
+        }  
     }
 }

@@ -73,4 +73,26 @@ public class SoundEffect : MonoBehaviour
             walkLoopSource.Stop();
         }
     }
+
+    public void StopBgMusic()
+{
+    if (bgSoundSource != null && bgSoundSource.isPlaying)
+    {
+        bgSoundSource.Stop(); // หยุดการเล่น BG Sound
+        walkLoopSource.Stop();
+    }
+
+
+
 }
+
+    public void Stopwalk()
+{
+   
+      
+        walkLoopSource.Stop();
+  
+}
+
+}
+
