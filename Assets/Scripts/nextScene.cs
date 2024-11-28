@@ -14,6 +14,10 @@ public class SceneController : MonoBehaviour
         StartCoroutine(LoadSceneAsyncByIndex(3)); 
     }
 
+       public void LoadLevel1()
+    {
+        StartCoroutine(LoadSceneAsyncByIndex(0)); 
+    }
        public void LoadLevel2()
     {
         StartCoroutine(LoadSceneAsyncByIndex(1)); 
@@ -24,6 +28,17 @@ public class SceneController : MonoBehaviour
         StartCoroutine(LoadSceneAsyncByIndex(2)); 
     }
 
+
+   public void exit()
+    {
+        #if UNITY_EDITOR
+        // หยุด Play ใน Unity Editor
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // ออกจากเกม
+        Application.Quit();
+#endif
+    }
 
     // ฟังก์ชันสำหรับโหลด Scene ปัจจุบันใหม่
     public void RestartCurrentScene()
