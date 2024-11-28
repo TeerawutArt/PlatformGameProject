@@ -8517,6 +8517,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5314499215979228392, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
       insertIndex: -1
       addedObject: {fileID: 751653309}
+    - targetCorrespondingSourceObject: {fileID: 5314499215979228392, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 751653315}
   m_SourcePrefab: {fileID: 100100000, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
 --- !u!4 &297830519 stripped
 Transform:
@@ -14535,6 +14538,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4794983736757778002, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
   m_PrefabInstance: {fileID: 287883110}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &751653315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751653308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46b548e05d0a264abcaee04fe20b8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallDelay: 1
+  fallSpeed: 3
+  resetDelay: 1
+  fallOffset: {x: 0, y: -12, z: 0}
 --- !u!1 &754548093
 GameObject:
   m_ObjectHideFlags: 0
@@ -21353,6 +21372,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5314499215979228392, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1215305122}
+    - targetCorrespondingSourceObject: {fileID: 5314499215979228392, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1215305125}
   m_SourcePrefab: {fileID: 100100000, guid: 2a4fe05fcffa96b47bb7bafedb690352, type: 3}
 --- !u!1 &1215305120 stripped
 GameObject:
@@ -21385,6 +21407,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0000002, y: 2.0000002, z: 2.0000002}
   m_Center: {x: 0.00000035762787, y: 1.0000001, z: 0.00000011920929}
+--- !u!114 &1215305125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215305120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46b548e05d0a264abcaee04fe20b8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallDelay: 1
+  fallSpeed: 3
+  resetDelay: 1
+  fallOffset: {x: 0, y: -12, z: 0}
 --- !u!1 &1219755701
 GameObject:
   m_ObjectHideFlags: 0
