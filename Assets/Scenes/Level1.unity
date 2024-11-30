@@ -22721,7 +22721,7 @@ MonoBehaviour:
   health: 0
   maxHp: 3
   point: 0
-  doubleJump: 1
+  doubleJump: 0
 --- !u!1 &1574094455
 GameObject:
   m_ObjectHideFlags: 0
